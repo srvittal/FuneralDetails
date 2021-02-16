@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 int Day = c.get(Calendar.DAY_OF_MONTH);
                 int Month = c.get(Calendar.MONTH);
                 int Year = c.get(Calendar.YEAR);
-                picker = new DatePickerDialog(MainActivity.this, new DatePickerDialog.OnDateSetListener() {
+                picker = new DatePickerDialog(MainActivity.this,R.style.DialogTheme,new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         txtEditDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 final Calendar t = Calendar.getInstance();
                 int hrs = t.get(Calendar.HOUR_OF_DAY);
                 int mins = t.get(Calendar.MINUTE);
-                timePicker = new TimePickerDialog(MainActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                timePicker = new TimePickerDialog(MainActivity.this,R.style.DialogTheme, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         txtEditTime.setText(hourOfDay + ":" + String.format("%02d",minute));
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 int Day = dDate[0];
                 int Month = dDate[1];
-                int Year = dDate[0];
+                int Year = dDate[2];
                 int Hour = Time[0];
                 int Min = Time[1];
 
