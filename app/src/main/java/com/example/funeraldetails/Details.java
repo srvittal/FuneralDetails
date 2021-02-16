@@ -3,6 +3,7 @@ package com.example.funeraldetails;
 
 import android.util.Log;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import swisseph.SweConst;
@@ -10,7 +11,7 @@ import swisseph.SweDate;
 import swisseph.SwissEph;
 
 
-public class Thithi {
+public class Details {
     static String thithi;
     static double diff, Sec,julDate;
     static double[] julDay = new double[2];
@@ -19,21 +20,12 @@ public class Thithi {
     public static String detailsThithi(int Year, int Month, int Day, int Hour, int Min ){
 
         Sec = 01;
-        Log.v("detailsThithi","Year:" + Year);
-        Log.v("detailsThithi","Month:" + Month);
-        Log.v("detailsThithi","Day:" + Day);
-        Log.v("detailsThithi","Hour:" + Hour);
-        Log.v("detailsThithi","Min:" + Min);
-
 
         int UtHour = Hour - 2;
         SweDate JD = new SweDate();
         julDay = JD.getJDfromUTC(Year,Month,Day,UtHour,Min,Sec,true,true);
-        Log.v("detailsThithi","julDay:" + julDay);
-
 
         julDate = julDay[1];
-        Log.v("detailsThithi","julDate:" + julDate);
 
         isun = SweConst.SE_SUN;
         imoon = SweConst.SE_MOON;
@@ -47,10 +39,6 @@ public class Thithi {
         if (moonLong < 0) {
             moonLong = moonLong + 360;
         }
-
-        Log.v("detailsThithi","sunLong:" + julDate);
-        Log.v("detailsThithi","moonLong:" + julDate);
-
         return calculateThithi(getDiff(sunLong,moonLong));
     }
 
@@ -118,6 +106,12 @@ public class Thithi {
         return thithi;
     }
 
+    public static String SdDay(Calendar cal) {
+        cal.add(Calendar.DAY_OF_MONTH, 15);
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd MMMM yyyy");
+        String date = sdf.format(cal.getTime());
+        return date;
+    }
 
 }
 

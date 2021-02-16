@@ -89,21 +89,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 btnReturn.setVisibility(View.VISIBLE);
 
 
-                int Date = picker.getDatePicker().getDayOfMonth();
-                int Month = picker.getDatePicker().getMonth() + 1;
+                int Day = picker.getDatePicker().getDayOfMonth();
+                int Month = picker.getDatePicker().getMonth();
                 int Year = picker.getDatePicker().getYear();
                 int Hour = Time[0];
-                int Minu = Time[1];
-                SimpleDateFormat simpledateformat = new SimpleDateFormat("EEEE");
-                Date date = new Date(Year, Month, Date-1);
-                String dayOfWeek = simpledateformat.format(date);
-                String Min = String.format("%02d",Time[1]);
-                String Theethee = Thithi.detailsThithi(Year,Month,Date,Hour,Minu);
+                int Min = Time[1];
+
+                Calendar cal = Calendar.getInstance();
+                cal.set(Year, Month, Day, Hour, Min);
+
+                SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, dd MMMM yyyy");
+                String Date = dateFormat.format(cal.getTime());
+                String Time = timeFormat.format(cal.getTime());
+                String Theethee = Details.detailsThithi(Year,Month+1,Day,Hour,Min);
+                String sDays = Details.SdDay(cal);
 
                 txtDetails.setText(
-                        "English Date: " + dayOfWeek + ", " + Date + "/" + Maasam[Month-1]  + "/" + Year +
-                                "\nTime: " + Hour + ":" + Min +
-                                "\nThithi: " + Theethee
+                        "English Date: " + Date +
+                                "\nTime: " + Time +
+                                "\nThithi: " + Theethee +
+                                "\n16 Days: " + sDays
                 );
             }
         });
@@ -122,10 +128,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
     }
-
-    public static final String[] Maasam = {"January","February","March","April","May","June","July","August","September","October","November","December"};
-    public static final String[] weekday = {"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
-
     @Override
     public void onClick(View v) {
 
