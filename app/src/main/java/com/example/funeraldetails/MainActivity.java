@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.*;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -14,11 +13,8 @@ import android.widget.TimePicker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
 import java.util.Calendar;
-import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -39,12 +35,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnDetails = this.findViewById(R.id.btnDetails);
         btnReturn = this.findViewById(R.id.btnReturn);
 
-        final Calendar c = Calendar.getInstance();
-
+        final int[] dDate = new int[3];
         txtEditDate.setInputType(InputType.TYPE_NULL);
         txtEditDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Calendar c = Calendar.getInstance();
                 int Day = c.get(Calendar.DAY_OF_MONTH);
                 int Month = c.get(Calendar.MONTH);
                 int Year = c.get(Calendar.YEAR);
@@ -52,6 +48,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         txtEditDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                        dDate[2]=year;
+                        dDate[1]=monthOfYear;
+                        dDate[0]=dayOfMonth;
                     }
                 }, Year, Month, Day);
                 picker.getDatePicker().setMaxDate(System.currentTimeMillis());
@@ -89,9 +88,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 btnReturn.setVisibility(View.VISIBLE);
 
 
-                int Day = picker.getDatePicker().getDayOfMonth();
-                int Month = picker.getDatePicker().getMonth();
-                int Year = picker.getDatePicker().getYear();
+                int Day = dDate[0];
+                int Month = dDate[1];
+                int Year = dDate[0];
                 int Hour = Time[0];
                 int Min = Time[1];
 

@@ -1,8 +1,6 @@
 package com.example.funeraldetails;
 
 
-import android.util.Log;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -15,7 +13,7 @@ public class Details {
     static String thithi;
     static double diff, Sec,julDate;
     static double[] julDay = new double[2];
-    static int isun, imoon, iflag,Year,Month,Day,Hour,Min,ti;
+    static int isun, imoon, iflag,ti;
 
     public static String detailsThithi(int Year, int Month, int Day, int Hour, int Min ){
 
