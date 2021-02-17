@@ -80,7 +80,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:textSize="10pt"
+            android:textSize="9pt"
             android:textColor="@color/black"
             android:gravity="center"
             app:layout_constraintBottom_toTopOf="@+id/btnDetails"
