@@ -13,15 +13,20 @@ public class Details {
     static String thithi;
     static double diff, Sec,julDate;
     static double[] julDay = new double[2];
-    static int isun, imoon, iflag,ti;
+    static int Day,Month,Year,Hour,Min,isun, imoon, iflag,ti;
 
-    public static String detailsThithi(int Year, int Month, int Day, int Hour, int Min ){
+    public static String detailsThithi(Calendar swisscal){
+        swisscal.add(Calendar.HOUR_OF_DAY,-2);
 
+        Day = swisscal.get(Calendar.DAY_OF_MONTH);
+        Month = swisscal.get(Calendar.MONTH);
+        Year = swisscal.get(Calendar.YEAR);
+        Hour = swisscal.get(Calendar.HOUR_OF_DAY);
+        Min = swisscal.get(Calendar.MINUTE);
         Sec = 01;
 
-        int UtHour = Hour - 2;
         SweDate JD = new SweDate();
-        julDay = JD.getJDfromUTC(Year,Month,Day,UtHour,Min,Sec,true,true);
+        julDay = JD.getJDfromUTC(Year,Month,Day,Hour,Min,Sec,true,true);
 
         julDate = julDay[1];
 
@@ -110,6 +115,20 @@ public class Details {
         String date = sdf.format(cal.getTime());
         return date;
     }
+/**
+ * work in progress to calculate 3rd Month
+    public static String getTMonth(Calendar swisscal){
+        swisscal.add(Calendar.MONTH,3);
+        String tThe = detailsThithi(swisscal);
+        MainActivity ma = new MainActivity();
+        while (tThe == ma.Theethee){
+            SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd MMMM yyyy");
+            String date = sdf.format(swisscal.getTime());
+            return date;
+            swisscal.add(Calendar.DAY_OF_MONTH,1);
+        }
 
+
+    } */
 }
 
