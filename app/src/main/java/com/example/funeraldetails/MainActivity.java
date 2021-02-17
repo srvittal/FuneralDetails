@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 int Day = c.get(Calendar.DAY_OF_MONTH);
                 int Month = c.get(Calendar.MONTH);
                 int Year = c.get(Calendar.YEAR);
-                picker = new DatePickerDialog(MainActivity.this, R.style.DialogTheme, new DatePickerDialog.OnDateSetListener() {
+                picker = new DatePickerDialog(MainActivity.this,R.style.DialogTheme, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         txtEditDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
