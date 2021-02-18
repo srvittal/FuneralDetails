@@ -1,8 +1,15 @@
 package com.example.funeraldetails;
 
 
+import android.os.Build;
+import android.util.Log;
+
+import androidx.annotation.RequiresApi;
+
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Objects;
 
 import swisseph.SweConst;
 import swisseph.SweDate;
@@ -19,7 +26,7 @@ public class Details {
         swisscal.add(Calendar.HOUR_OF_DAY,-2);
 
         Day = swisscal.get(Calendar.DAY_OF_MONTH);
-        Month = swisscal.get(Calendar.MONTH);
+        Month = swisscal.get(Calendar.MONTH) + 1;
         Year = swisscal.get(Calendar.YEAR);
         Hour = swisscal.get(Calendar.HOUR_OF_DAY);
         Min = swisscal.get(Calendar.MINUTE);
@@ -34,14 +41,9 @@ public class Details {
         imoon = SweConst.SE_MOON;
         iflag = SweConst.SEFLG_SWIEPH;
 
-        double sunLong = getLong(isun) - 24;
-        double moonLong = getLong(imoon) - 24;
-        if (sunLong < 0) {
-            sunLong = sunLong + 360;
-        }
-        if (moonLong < 0) {
-            moonLong = moonLong + 360;
-        }
+        double sunLong = getLong(isun);
+        double moonLong = getLong(imoon);
+
         return calculateThithi(getDiff(sunLong,moonLong));
     }
 
@@ -55,7 +57,10 @@ public class Details {
                 iflag,
                 xx,
                 serr);
-        return xx[0];
+        if (xx[0] < 0) {
+            xx[0] = xx[0] + 360;
+        }
+        return xx[0]-24;
     }
 
     public static double getDiff(double sunLon, double moonLon){
@@ -109,26 +114,32 @@ public class Details {
         return thithi;
     }
 
-    public static String SdDay(Calendar cal) {
+   public static String SdDay(Calendar calc) {
+        Calendar cal = (Calendar) calc.clone();
         cal.add(Calendar.DAY_OF_MONTH, 15);
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd MMMM yyyy");
         String date = sdf.format(cal.getTime());
         return date;
     }
-/**
- * work in progress to calculate 3rd Month
-    public static String getTMonth(Calendar swisscal){
+
+
+    public static String getTMonth(Calendar cal){
+        Calendar swisscal = (Calendar) cal.clone();
+        String dTthe = detailsThithi(swisscal);
         swisscal.add(Calendar.MONTH,3);
-        String tThe = detailsThithi(swisscal);
-        MainActivity ma = new MainActivity();
-        while (tThe == ma.Theethee){
-            SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd MMMM yyyy");
-            String date = sdf.format(swisscal.getTime());
-            return date;
-            swisscal.add(Calendar.DAY_OF_MONTH,1);
+        String str = "";
+        String tThe = "";
+
+        for (swisscal.add(Calendar.DAY_OF_MONTH,-5); !tThe.contentEquals(dTthe); swisscal.add(Calendar.DAY_OF_MONTH,1)) {
+            tThe = detailsThithi(swisscal);
         }
 
+        if (tThe.contentEquals(dTthe)){
+            SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd MMMM yyyy");
+            str = sdf.format(swisscal.getTime());
+        }
+        return str;
+    }
 
-    } */
 }
 

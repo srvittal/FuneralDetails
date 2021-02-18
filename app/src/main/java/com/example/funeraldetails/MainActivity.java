@@ -3,6 +3,7 @@ package com.example.funeraldetails;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.SimpleDateFormat;
@@ -25,7 +27,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText txtEditDate, txtEditTime;
     private TextView txtDetails;
     private Button btnDetails, btnReturn;
-    public String Theethee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         btnDetails.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 if (dDate[2] > 0) {
@@ -105,23 +107,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     Calendar cal = Calendar.getInstance();
                                     cal.set(Year, Month, Day, Hour, Min);
 
-                                    Calendar swisscal = Calendar.getInstance();
-                                    swisscal.set(Year, Month + 1, Day, Hour, Min);
-
                                     SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
                                     SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, dd MMMM yyyy");
                                     String Date = dateFormat.format(cal.getTime());
                                     String Time = timeFormat.format(cal.getTime());
-                                    Theethee = Details.detailsThithi(swisscal);
+                                    String Theethee = Details.detailsThithi(cal);
                                     String sDays = Details.SdDay(cal);
-                                    //String tMonth = Details.getTMonth(cal);
+                                    String tMonth = Details.getTMonth(cal);
 
                                     txtDetails.setText(
                                             "English Date: " + Date +
                                                     "\nTime: " + Time +
                                                     "\nThithi: " + Theethee +
                                                     "\n16 Days: " + sDays +
-                                                    "\n3rd Month"
+                                                    "\n3rd Month: " + tMonth
                                     );
                                 }
                             }
