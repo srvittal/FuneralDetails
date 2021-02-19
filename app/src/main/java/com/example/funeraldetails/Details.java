@@ -123,18 +123,29 @@ public class Details {
     }
 
 
-    public static String getTMonth(Calendar cal){
+    public static String getTMonth(Calendar cal, int amount){
         Calendar swisscal = (Calendar) cal.clone();
         String dTthe = detailsThithi(swisscal);
-        swisscal.add(Calendar.MONTH,3);
+        swisscal.add(Calendar.MONTH,amount);
         String str = "";
         String tThe = "";
+        int i = -3;
 
-        for (swisscal.add(Calendar.DAY_OF_MONTH,-5); !tThe.contentEquals(dTthe); swisscal.add(Calendar.DAY_OF_MONTH,1)) {
-            tThe = detailsThithi(swisscal);
+        if (amount == 1 || amount == 3 || amount == 7){
+            i = -5;
+        } else if (amount == 9){
+            i = -10;
+        } else{
+            i = -15;
         }
 
+        for (swisscal.add(Calendar.DAY_OF_MONTH, i); !tThe.contentEquals(dTthe); swisscal.add(Calendar.DAY_OF_MONTH, 1)) {
+                tThe = detailsThithi(swisscal);
+        }
+
+
         if (tThe.contentEquals(dTthe)){
+            swisscal.add(Calendar.DAY_OF_MONTH,-1);
             SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd MMMM yyyy");
             str = sdf.format(swisscal.getTime());
         }
