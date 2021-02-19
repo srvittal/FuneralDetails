@@ -113,17 +113,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     String Time = timeFormat.format(cal.getTime());
                                     String Theethee = Details.detailsThithi(cal);
                                     String sDays = Details.SdDay(cal);
+                                    String oneMonth = Details.getTMonth(cal,1);
                                     String thirdMonth = Details.getTMonth(cal,3);
                                     String fifthMonth = Details.getTMonth(cal,5);
                                     String seventhMonth = Details.getTMonth(cal,7);
                                     String ninthMonth = Details.getTMonth(cal,9);
-                                    String earlyCerem = Details.getTMonth(cal,12);
+                                    String earlyCerem = Details.getTMonth(cal,11);
 
                                     txtDetails.setText(
                                             "English Date: " + Date +
                                                     "\nTime: " + Time +
                                                     "\nThithi: " + Theethee +
                                                     "\n16 Days: " + sDays +
+                                                    "\n 1st Month: "+ oneMonth +
                                                     "\n3rd Month: " + thirdMonth +
                                                     "\n5th Month: " + fifthMonth +
                                                     "\n7th Month: " + seventhMonth +

@@ -83,6 +83,7 @@
             android:textSize="9pt"
             android:textColor="@color/black"
             android:gravity="center"
+            android:textIsSelectable="true"
             app:layout_constraintBottom_toTopOf="@+id/btnDetails"
             app:layout_constraintTop_toBottomOf="@+id/txtEditTime" />
 
