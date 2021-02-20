@@ -131,9 +131,9 @@ public class Details {
         String tThe = "";
         int i = -3;
 
-        if (amount == 1 || amount == 3 || amount == 7){
+        if (amount == 1 || amount == 3){
             i = -5;
-        } else if (amount == 9){
+        } else if (amount == 7 || amount == 9){
             i = -10;
         } else{
             i = -15;
