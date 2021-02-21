@@ -17,39 +17,36 @@ import swisseph.SwissEph;
 
 
 public class Details {
-    static String thithi;
-    static double diff, Sec,julDate;
-    static double[] julDay = new double[2];
-    static int Day,Month,Year,Hour,Min,isun, imoon, iflag,ti;
 
-    public static String detailsThithi(Calendar swisscal){
+    public static String detailsThithi(Calendar cal){
+        Calendar swisscal = (Calendar) cal.clone();
         swisscal.add(Calendar.HOUR_OF_DAY,-2);
 
-        Day = swisscal.get(Calendar.DAY_OF_MONTH);
-        Month = swisscal.get(Calendar.MONTH) + 1;
-        Year = swisscal.get(Calendar.YEAR);
-        Hour = swisscal.get(Calendar.HOUR_OF_DAY);
-        Min = swisscal.get(Calendar.MINUTE);
-        Sec = 01;
+        int Day = swisscal.get(Calendar.DAY_OF_MONTH);
+        int Month = swisscal.get(Calendar.MONTH) + 1;
+        int Year = swisscal.get(Calendar.YEAR);
+        int Hour = swisscal.get(Calendar.HOUR_OF_DAY);
+        int Min = swisscal.get(Calendar.MINUTE);
+        double Sec = 01;
 
         SweDate JD = new SweDate();
-        julDay = JD.getJDfromUTC(Year,Month,Day,Hour,Min,Sec,true,true);
+        double[] julDay = JD.getJDfromUTC(Year,Month,Day,Hour,Min,Sec,true,true);
 
-        julDate = julDay[1];
+        double julDate = julDay[1];
 
-        isun = SweConst.SE_SUN;
-        imoon = SweConst.SE_MOON;
-        iflag = SweConst.SEFLG_SWIEPH;
+        int isun = SweConst.SE_SUN;
+        int imoon = SweConst.SE_MOON;
 
-        double sunLong = getLong(isun);
-        double moonLong = getLong(imoon);
+        double sunLong = getLong(isun, julDate);
+        double moonLong = getLong(imoon, julDate);
 
         return calculateThithi(getDiff(sunLong,moonLong));
     }
 
-    private static double getLong(int iplanet){
+    private static double getLong(int iplanet, double julDate){
         SwissEph sw = new SwissEph();
         sw.swe_set_ephe_path(null);
+        int iflag = SweConst.SEFLG_SWIEPH;
         double[] xx = new double[6];
         StringBuffer serr = new StringBuffer("string buffer error");
         sw.swe_calc_ut(julDate,
@@ -64,14 +61,15 @@ public class Details {
     }
 
     public static double getDiff(double sunLon, double moonLon){
-        diff = moonLon - sunLon;
+        double diff = moonLon - sunLon;
         if (diff < 0)
             diff = diff + 360;
         return diff;
     }
 
     public static String calculateThithi(double diff){
-        ti = (int) (diff / 12);
+        String thithi = "";
+        int ti = (int) (diff / 12);
         if (ti < 0){
             ti = 0;
         }
@@ -129,7 +127,7 @@ public class Details {
         swisscal.add(Calendar.MONTH,amount);
         String str = "";
         String tThe = "";
-        int i = -3;
+        int i;
 
         if (amount == 1 || amount == 3){
             i = -5;
